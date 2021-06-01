@@ -12,7 +12,7 @@ def index():
 @app.route('/list')
 def list():
     data = request.args.get("csv", type=str, default="json")
-    k = request.args.get("k", type=int, default=0)
+    k = request.args.get("k", type=int, default=-1)
     list_ = request.args.get("list", type=str)
     r = requests.get('http://restapi:5000/' + list_ + data + '?top=' + str(k))
     return r.text

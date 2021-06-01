@@ -13,7 +13,7 @@ api = Api(app)
 
 
 class listAll(Resource):
-    def get(self, data):
+    def get(self, data="json"):
         k = int(request.args.get("top", default=-1))
         vals = list(db.vals.find({}, {'_id': 0, 'brevet_dist': 0, 'begin_date': 0, 'km': 0, 'miles': 0, 'location': 0}))
         if data == "json":
@@ -23,7 +23,7 @@ class listAll(Resource):
 
 
 class listOpenOnly(Resource):
-    def get(self, data):
+    def get(self, data="json"):
         k = int(request.args.get("top", default=-1))
         vals = list(db.vals.find({}, {'_id': 0, 'brevet_dist': 0, 'begin_date': 0, 'km': 0, 'miles': 0, 'location': 0, 'close_time': 0}))
         if data == "json":
@@ -33,7 +33,7 @@ class listOpenOnly(Resource):
 
 
 class listCloseOnly(Resource):
-    def get(self, data):
+    def get(self, data="json"):
         k = int(request.args.get("top", default=-1))
         vals = list(db.vals.find({}, {'_id': 0, 'brevet_dist': 0, 'begin_date': 0, 'km': 0, 'miles': 0, 'location': 0, 'open_time': 0}))
         if data == "json":
@@ -67,9 +67,9 @@ def _csv(k, vals):
 
 # Create routes
 # Another way, without decorators
-api.add_resource(listAll, '/listAll', '/listAll/<string:data>')
-api.add_resource(listOpenOnly, '/listOpenOnly', '/listOpenOnly/<string:data>')
-api.add_resource(listCloseOnly, '/listCloseOnly', '/listCloseOnly/<string:data>')
+api.add_resource(listAll, '/listAll', '/listAll/', '/listAll/<string:data>')
+api.add_resource(listOpenOnly, '/listOpenOnly', '/listOpenOnly/', '/listOpenOnly/<string:data>')
+api.add_resource(listCloseOnly, '/listCloseOnly', '/listCloseOnly/', '/listCloseOnly/<string:data>')
 
 # Run the application
 if __name__ == '__main__':
